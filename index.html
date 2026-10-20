@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JUSTZELL MARKETPLACE – Jasa Setup & Plugin Minecraft</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0f1c;--card:#121629;--ink:#eef0fa;--mute:#9aa0bd;--line:#232948;--acc:#7c5cff;--acc2:#22d3ee;--ok:#34d399;--dc:#5865f2;--wa:#25d366;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f5f6fb;--card:#fff;--ink:#14172b;--mute:#5d6384;--line:#dde0ee}}
+:root[data-theme="light"]{--bg:#f5f6fb;--card:#fff;--ink:#14172b;--mute:#5d6384;--line:#dde0ee}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.5;
+background-image:radial-gradient(600px 300px at 50% -80px,#7c5cff33,transparent)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 18px}
+nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0;border-bottom:1px solid var(--line)}
+.logo{font-weight:800;letter-spacing:.06em;display:flex;align-items:center;gap:10px}
+.logo i{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:inline-block}
+.links{display:flex;gap:22px;font-size:14px;font-weight:500}
+.links a{color:var(--ink);text-decoration:none;opacity:.85}.links a:hover{opacity:1}
+@media(max-width:720px){.links{display:none}}
+.btn{border:0;border-radius:10px;padding:11px 18px;font:inherit;font-weight:700;font-size:14px;cursor:pointer;color:#fff;background:linear-gradient(135deg,var(--acc),#5b8cff);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .12s,filter .12s}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.1)}
+.btn.dc{background:var(--dc)}.btn.wa{background:var(--wa);color:#06260f}.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn.block{width:100%}
+.hero{text-align:center;padding:52px 0 10px}
+.hero h1{font-size:clamp(26px,5vw,44px);margin:0 0 10px;font-weight:800;letter-spacing:-.02em}
+.hero h1 b{background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .s{color:var(--acc2);font-weight:600;margin:0 0 6px}
+.hero p{color:var(--mute);max-width:560px;margin:0 auto 22px}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.lbl{text-align:center;font-size:11px;letter-spacing:.2em;color:var(--mute);margin:30px 0 10px;font-weight:600}
+.seg{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.seg button{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:10px 20px;font:inherit;font-weight:600;font-size:14px;cursor:pointer}
+.seg button.on{background:linear-gradient(135deg,var(--acc),#5b8cff);border-color:transparent;color:#fff}
+.seg.pill{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px;display:inline-flex;margin:0 auto}
+.seg.pill button{border:0;background:transparent;border-radius:10px;padding:9px 16px;color:var(--mute)}
+.seg.pill button.on{color:#fff}
+.center{display:flex;justify-content:center}
+.sav{font-size:10px;background:#34d39933;color:var(--ok);border-radius:6px;padding:1px 6px;margin-left:5px}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px;margin-top:28px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;position:relative;display:flex;flex-direction:column}
+.plan.pop{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc),0 18px 50px #7c5cff30}
+.pop-t{position:absolute;top:-12px;right:18px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px}
+.plan h3{margin:0;font-size:22px;color:var(--acc)}
+.pr{font-size:24px;font-weight:800;margin:6px 0 0}.pr small{font-size:12px;color:var(--acc2);font-weight:600}
+.tot{font-size:12px;color:var(--mute);min-height:18px}
+.dcn{font-size:11px;letter-spacing:.18em;color:var(--mute);margin:16px 0 8px;font-weight:600}
+.spec{display:flex;justify-content:space-between;font-size:14px;padding:5px 0}.spec span:first-child{color:var(--mute)}
+hr{border:0;border-top:1px solid var(--line);margin:12px 0}
+.ft{list-style:none;padding:0;margin:0 0 18px;flex:1}
+.ft li{font-size:14px;padding:4px 0 4px 24px;position:relative}
+.ft li::before{content:"✓";position:absolute;left:0;color:var(--acc);font-weight:800}
+h2{text-align:center;font-size:clamp(20px,4vw,28px);margin:70px 0 6px}
+.sub{text-align:center;color:var(--mute);margin:0 0 22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.mini{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:8px}
+.mini h4{margin:0;font-size:16px}.mini p{margin:0;color:var(--mute);font-size:14px;flex:1}.mini b{color:var(--acc2)}
+.join{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+footer{text-align:center;color:var(--mute);font-size:13px;padding:50px 0 30px}
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
+.modal.on{display:flex}
+.box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;max-width:440px;width:100%;max-height:92vh;overflow:auto}
+.box.wide{max-width:760px}
+.box h3{margin:0 0 4px}
+.x{float:right;background:none;border:0;color:var(--ink);font-size:24px;cursor:pointer}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.row .btn{flex:1;min-width:140px}
+input,textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit;margin:4px 0 10px}
+textarea{font-family:ui-monospace,monospace;font-size:12px;min-height:260px}
+label{font-size:12px;font-weight:700}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:13px;font-weight:600;display:none;z-index:60;max-width:90%;text-align:center}
+.toast.on{display:block}
+#adminBtn{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="logo"><i></i>JUSTZELL MARKETPLACE</div>
+    <div class="links"><a href="#paket">Jasa & Paket</a><a href="#komunitas">Komunitas</a></div>
+    <div style="display:flex;gap:8px"><button class="btn ghost" id="adminBtn" onclick="openAdmin()">⚙ Admin</button><a class="btn" id="joinDc" target="_blank" rel="noopener">Join Discord</a></div>
+  </nav>
+
+  <section class="hero" id="paket">
+    <p class="s">Jasa Setup & Plugin Minecraft</p>
+    <h1>Server rapi, <b>tinggal main</b></h1>
+    <p>Pilih jasa atau paket yang kamu butuhkan. Pesan lewat WhatsApp atau Discord, kami kerjakan setup server dan pasang plugin sampai siap.</p>
+    <div class="cta">
+      <a class="btn dc" id="joinDc3" target="_blank" rel="noopener">🎮 Join Server Discord</a>
+      <a class="btn wa" id="joinWa" target="_blank" rel="noopener">📢 Saluran WhatsApp</a>
+    </div>
+  </section>
+
+  <div class="lbl">KATEGORI</div>
+  <div class="seg" id="sCat"></div>
+  <div class="plans" id="plans"></div>
+
+  <h2 id="komunitas">Gabung Komunitas</h2>
+  <p class="sub">Dapatkan info promo dan bantuan langsung.</p>
+  <div class="join">
+    <div class="mini"><h4>Discord Server</h4><p>Ngobrol, tanya, dan lihat hasil kerja kami.</p><a class="btn dc block" id="joinDc2" target="_blank" rel="noopener">Join Server Discord</a></div>
+    <div class="mini"><h4>Saluran WhatsApp</h4><p>Update promo dan pengumuman terbaru.</p><a class="btn wa block" id="joinWa2" target="_blank" rel="noopener">Ikuti Saluran WhatsApp</a></div>
+  </div>
+  <footer>© JUSTZELL MARKETPLACE · Bukan produk resmi Mojang/Microsoft</footer>
+</div>
+
+<div class="modal" id="orderM"><div class="box">
+  <button class="x" onclick="closeM('orderM')">×</button>
+  <h3 id="oName"></h3><div id="oInfo" style="color:var(--mute);font-size:14px"></div>
+  <p style="font-size:14px">Lanjutkan pemesanan lewat:</p>
+  <div class="row"><a class="btn wa" id="oWa" target="_blank" rel="noopener">WhatsApp</a><a class="btn dc" id="oDc" target="_blank" rel="noopener">Discord</a></div>
+  <p style="color:var(--mute);font-size:12px;margin-bottom:0">Untuk Discord, pesanan otomatis disalin. Tempel (paste) di chat.</p>
+</div></div>
+
+<div class="modal" id="adminM"><div class="box wide">
+  <button class="x" onclick="closeM('adminM')">×</button>
+  <h3>Panel Admin</h3>
+  <p style="color:var(--mute);font-size:13px">Hanya pemilik halaman (akun email kamu) yang melihat ini.</p>
+  <label>Nomor WhatsApp (628xxx)</label><input id="aWa">
+  <label>Link Saluran WhatsApp</label><input id="aWaCh">
+  <label>Link Invite Discord</label><input id="aDc">
+  <label>Daftar jasa & paket (JSON): c = kategori, n = nama, p = harga, d = deskripsi, f = isi</label>
+  <textarea id="aJson" spellcheck="false"></textarea>
+  <div class="row"><button class="btn" onclick="saveAdmin()">💾 Simpan</button></div>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+var DEF={
+  wa:"6282262806327",
+  waChannel:"https://whatsapp.com/channel/0029VbE6RuIGehEQUpLAI71V",
+  dc:"https://discord.gg/ZeQfebBHQ",
+  cats:{all:"Semua",setup:"Setup Server",plugin:"Pasang Plugin",promo:"Promosi",custom:"Custom Plugin",paket:"Paket"},
+  items:[
+    {c:"setup",n:"Jasa Setup Server",p:"Rp 70K - 150K",d:"Setup server Minecraft dari nol sampai siap dimainkan.",f:["Instal & konfigurasi server","Optimasi pengaturan dasar","Panduan penggunaan singkat"]},
+    {c:"plugin",n:"Jasa Pasang Plugin",p:"Rp 15K - 50K",d:"Pemasangan dan konfigurasi plugin sesuai kebutuhan servermu.",f:["Pasang plugin pilihanmu","Konfigurasi dasar","Cek kompatibilitas versi"]},
+    {c:"promo",n:"Jasa Promosi",p:"Rp 20K - 30K",d:"Promosikan servermu supaya lebih banyak pemain yang tahu.",f:["Promosi di komunitas","Materi promosi sederhana"]},
+    {c:"custom",n:"Jasa Buat Custom Plugin",p:"Rp 50K - 250K",d:"Plugin buatan khusus sesuai ide dan fitur yang kamu mau.",f:["Dibuat sesuai permintaan","Harga menyesuaikan kerumitan","Revisi sesuai kesepakatan"]},
+    {c:"paket",n:"Paket Hemat",p:"Rp 15K",d:"Pasang Plugin dan Setup Server.",f:["Setup server","Pasang minimal 5 plugin"],tag:"HEMAT"},
+    {c:"paket",n:"Paket Pisang",p:"Rp 25K",d:"Pasang Plugin dan Setup Server plus Promosi.",f:["Setup server","Pasang minimal 15 plugin","Promosi"],tag:"POPULER",pop:true}
+  ]
+};
+var cfg=JSON.parse(JSON.stringify(DEF)),dbRef=null,sel={cat:"all"};
+var $=function(i){return document.getElementById(i)};
+function esc(s){var d=document.createElement("div");d.textContent=s==null?"":s;return d.innerHTML}
+function toast(t){var e=$("toast");e.textContent=t;e.className="toast on";setTimeout(function(){e.className="toast"},2600)}
+function closeM(i){$(i).classList.remove("on")}
+function waUrl(m){return "https://wa.me/"+String(cfg.wa).replace(/\D/g,"")+"?text="+encodeURIComponent(m)}
+function pick(v){sel.cat=v;render()}
+function render(){
+  ["joinDc","joinDc2","joinDc3"].forEach(function(i){$(i).href=cfg.dc});
+  ["joinWa","joinWa2"].forEach(function(i){$(i).href=cfg.waChannel});
+  $("sCat").innerHTML=Object.keys(cfg.cats).map(function(k){return '<button class="'+(sel.cat===k?"on":"")+'" onclick="pick(\''+k+'\')">'+esc(cfg.cats[k])+'</button>'}).join("");
+  $("plans").innerHTML=cfg.items.map(function(it,i){
+    if(sel.cat!=="all"&&it.c!==sel.cat)return "";
+    return '<div class="plan'+(it.pop?' pop':'')+'">'+(it.tag?'<span class="pop-t">'+esc(it.tag)+'</span>':'')+
+      '<h3>'+esc(it.n)+'</h3><div class="pr">'+esc(it.p)+'</div>'+
+      '<div class="tot">'+esc(it.d)+'</div><hr>'+
+      '<ul class="ft">'+(it.f||[]).map(function(f){return '<li>'+esc(f)+'</li>'}).join("")+'</ul>'+
+      '<button class="btn block" onclick="order('+i+')">Beli</button></div>';
+  }).join("");
+}
+
+function openOrder(name,info,msg){
+  $("oName").textContent=name;$("oInfo").textContent=info;
+  $("oWa").href=waUrl(msg);
+  var dc=$("oDc");dc.href=cfg.dc;
+  dc.onclick=function(){try{navigator.clipboard.writeText(msg);toast("Pesan disalin! Paste di Discord.")}catch(e){toast("Sebutkan pesananmu di Discord.")}};
+  $("orderM").classList.add("on");
+}
+function order(i){var s=cfg.items[i];openOrder(s.n,s.p,"Halo JUSTZELL MARKETPLACE, saya mau pesan:\n"+s.n+"\nHarga: "+s.p)}
+
+function openAdmin(){
+  $("aWa").value=cfg.wa;$("aWaCh").value=cfg.waChannel;$("aDc").value=cfg.dc;
+  var d=JSON.parse(JSON.stringify(cfg));delete d.wa;delete d.waChannel;delete d.dc;
+  $("aJson").value=JSON.stringify(d,null,2);$("adminM").classList.add("on");
+}
+async function saveAdmin(){
+  var d;try{d=JSON.parse($("aJson").value)}catch(e){toast("JSON tidak valid, cek lagi koma dan tanda kutip");return}
+  d.wa=$("aWa").value.trim();d.waChannel=$("aWaCh").value.trim();d.dc=$("aDc").value.trim();
+  cfg=Object.assign({},DEF,d);render();
+  if(!dbRef){toast("Tersimpan sementara (database tidak tersedia)");closeM("adminM");return}
+  try{await dbRef.set(cfg);toast("Tersimpan ✔");closeM("adminM")}catch(e){toast("Gagal menyimpan: "+(e&&e.code||"error"))}
+}
+render();
+(async function(){
+  try{
+    if(!window.claude)return;
+    var u=await claude.use("user");
+    if(u&&(await u.isOwner()))$("adminBtn").style.display="inline-flex";
+    var db=await claude.use("db");
+    if(db){dbRef=db.doc("site/market");var s=await dbRef.get();if(s.exists){cfg=Object.assign({},DEF,s.data());render()}}
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
