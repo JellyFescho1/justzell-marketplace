@@ -74,6 +74,17 @@ label{font-size:12px;font-weight:700}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:13px;font-weight:600;display:none;z-index:60;max-width:90%;text-align:center}
 .toast.on{display:block}
 #adminBtn{display:none}
+.rev{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:20px;align-items:start}
+@media(max-width:760px){.rev{grid-template-columns:1fr}}
+.rbox{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.big{font-size:44px;font-weight:800;line-height:1}
+.st{color:var(--line);font-size:20px}.st.on{color:#fbbf24}
+.bar{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--mute);margin:5px 0}
+.bar i{flex:1;height:8px;border-radius:99px;background:var(--line);overflow:hidden}.bar i b{display:block;height:100%;background:#fbbf24}
+.pk button{background:none;border:0;font-size:30px;color:var(--line);cursor:pointer;padding:0 2px}.pk button.on{color:#fbbf24}
+.rv{border-top:1px solid var(--line);padding:14px 0}.rv:first-child{border-top:0}
+.rv b{font-size:14px}.rv small{color:var(--mute);margin-left:6px}.rv p{margin:6px 0 0;font-size:14px;word-break:break-word}
+.rdel{background:none;border:0;color:#f87171;font-size:12px;cursor:pointer;margin-left:8px}
 </style>
 </head>
 <body>
@@ -104,6 +115,24 @@ label{font-size:12px;font-weight:700}
     <div class="mini"><h4>Discord Server</h4><p>Ngobrol, tanya, dan lihat hasil kerja kami.</p><a class="btn dc block" id="joinDc2" target="_blank" rel="noopener">Join Server Discord</a></div>
     <div class="mini"><h4>Saluran WhatsApp</h4><p>Update promo dan pengumuman terbaru.</p><a class="btn wa block" id="joinWa2" target="_blank" rel="noopener">Ikuti Saluran WhatsApp</a></div>
   </div>
+  <h2 id="rating">Rating & Ulasan</h2>
+  <p class="sub">Apa kata pembeli tentang JUSTZELL MARKETPLACE.</p>
+  <div class="rev">
+    <div>
+      <div class="rbox" style="margin-bottom:16px">
+        <div class="big" id="avg">–</div><div id="avgSt"></div><div style="color:var(--mute);font-size:13px;margin:4px 0 12px" id="cnt"></div>
+        <div id="dist"></div>
+      </div>
+      <div class="rbox">
+        <b>Beri rating kamu</b>
+        <div class="pk" id="pk"></div>
+        <input id="rName" maxlength="30" placeholder="Nama (opsional)">
+        <textarea id="rText" maxlength="300" placeholder="Tulis ulasan singkat..." style="min-height:80px"></textarea>
+        <button class="btn block" onclick="submitRev()">Kirim Ulasan</button>
+      </div>
+    </div>
+    <div class="rbox" id="rList"></div>
+  </div>
   <footer>© JUSTZELL MARKETPLACE · Bukan produk resmi Mojang/Microsoft</footer>
 </div>
 
@@ -130,15 +159,16 @@ label{font-size:12px;font-weight:700}
 
 <script>
 var DEF={
-  wa:"6282262806327",
-  waChannel:"https://whatsapp.com/channel/0029VbE6RuIGehEQUpLAI71V",
-  dc:"https://discord.gg/8YEw94K7cR",
-  cats:{all:"Semua",setup:"Setup Server",plugin:"Pasang Plugin",promo:"Promosi",custom:"Custom Plugin",paket:"Paket"},
+  wa:"6281234567890",
+  waChannel:"https://whatsapp.com/channel/GANTI_LINK",
+  dc:"https://discord.gg/GANTI_LINK",
+  cats:{all:"Semua",setup:"Setup Server",plugin:"Pasang Plugin",promo:"Promosi",custom:"Custom Plugin",build:"Build Bangunan",paket:"Paket"},
   items:[
     {c:"setup",n:"Jasa Setup Server",p:"Rp 70K - 150K",d:"Setup server Minecraft dari nol sampai siap dimainkan.",f:["Instal & konfigurasi server","Optimasi pengaturan dasar","Panduan penggunaan singkat"]},
     {c:"plugin",n:"Jasa Pasang Plugin",p:"Rp 15K - 50K",d:"Pemasangan dan konfigurasi plugin sesuai kebutuhan servermu.",f:["Pasang plugin pilihanmu","Konfigurasi dasar","Cek kompatibilitas versi"]},
     {c:"promo",n:"Jasa Promosi",p:"Rp 20K - 30K",d:"Promosikan servermu supaya lebih banyak pemain yang tahu.",f:["Promosi di komunitas","Materi promosi sederhana"]},
     {c:"custom",n:"Jasa Buat Custom Plugin",p:"Rp 50K - 250K",d:"Plugin buatan khusus sesuai ide dan fitur yang kamu mau.",f:["Dibuat sesuai permintaan","Harga menyesuaikan kerumitan","Revisi sesuai kesepakatan"]},
+    {c:"build",n:"Jasa Buat Lobby / Build Bangunan",p:"Rp 20K - 1jt+",d:"Lobby, spawn, dan bangunan custom untuk servermu, dari yang simpel sampai megah.",f:["Lobby & spawn sesuai tema","Bangunan custom sesuai request","Harga menyesuaikan ukuran & detail"]},
     {c:"paket",n:"Paket Hemat",p:"Rp 15K",d:"Pasang Plugin dan Setup Server.",f:["Setup server","Pasang minimal 5 plugin"],tag:"HEMAT"},
     {c:"paket",n:"Paket Pisang",p:"Rp 25K",d:"Pasang Plugin dan Setup Server plus Promosi.",f:["Setup server","Pasang minimal 15 plugin","Promosi"],tag:"POPULER",pop:true}
   ]
@@ -185,14 +215,47 @@ async function saveAdmin(){
   if(!dbRef){toast("Tersimpan sementara (database tidak tersedia)");closeM("adminM");return}
   try{await dbRef.set(cfg);toast("Tersimpan ✔");closeM("adminM")}catch(e){toast("Gagal menyimpan: "+(e&&e.code||"error"))}
 }
+var revs=[],myStar=0,revDb=null,myId=null,isAdmin=false;
+function stars(n){var h="";for(var i=1;i<=5;i++)h+='<span class="st'+(i<=Math.round(n)?' on':'')+'">★</span>';return h}
+function drawPk(){$("pk").innerHTML=[1,2,3,4,5].map(function(i){return '<button class="'+(i<=myStar?'on':'')+'" onclick="myStar='+i+';drawPk()" aria-label="'+i+' bintang">★</button>'}).join("")}
+function renderRev(){
+  var n=revs.length,sum=0,c=[0,0,0,0,0,0];
+  revs.forEach(function(r){var k=Math.min(5,Math.max(1,+r.stars||1));sum+=k;c[k]++});
+  var avg=n?sum/n:0;
+  $("avg").textContent=n?avg.toFixed(1):"–";$("avgSt").innerHTML=stars(avg);$("cnt").textContent=n+" ulasan";
+  $("dist").innerHTML=[5,4,3,2,1].map(function(k){return '<div class="bar"><span>'+k+'★</span><i><b style="width:'+(n?c[k]/n*100:0)+'%"></b></i><span>'+c[k]+'</span></div>'}).join("");
+  $("rList").innerHTML=n?revs.map(function(r,i){
+    var dt=r.ts?new Date(r.ts).toLocaleDateString("id-ID",{day:"numeric",month:"short",year:"numeric"}):"";
+    return '<div class="rv"><div>'+stars(r.stars)+'</div><b>'+esc(r.name||"Anonim")+'</b><small>'+esc(dt)+'</small>'+
+      (isAdmin&&revDb&&r.id?'<button class="rdel" onclick="delRev(\''+esc(r.id)+'\')">hapus</button>':'')+
+      (r.text?'<p>'+esc(r.text)+'</p>':'')+'</div>';
+  }).join(""):'<p style="color:var(--mute);margin:0">Belum ada ulasan. Jadilah yang pertama!</p>';
+}
+async function submitRev(){
+  if(myStar<1){toast("Pilih bintang 1-5 dulu");return}
+  var o={name:$("rName").value.trim().slice(0,30)||"Anonim",stars:myStar,text:$("rText").value.trim().slice(0,300),ts:Date.now()};
+  try{
+    if(revDb&&myId){await revDb.doc(myId).set(o)}
+    else{revs.unshift(o);try{localStorage.setItem("jz_reviews",JSON.stringify(revs.slice(0,50)))}catch(e){}renderRev()}
+    toast("Terima kasih atas ulasanmu!");myStar=0;$("rText").value="";drawPk();
+  }catch(e){toast("Gagal mengirim ulasan")}
+}
+async function delRev(id){try{await revDb.doc(id).delete();toast("Ulasan dihapus")}catch(e){toast("Gagal menghapus")}}
+try{revs=JSON.parse(localStorage.getItem("jz_reviews")||"[]")}catch(e){revs=[]}
+drawPk();renderRev();
 render();
 (async function(){
   try{
     if(!window.claude)return;
     var u=await claude.use("user");
-    if(u&&(await u.isOwner()))$("adminBtn").style.display="inline-flex";
+    if(u&&(await u.isOwner())){isAdmin=true;$("adminBtn").style.display="inline-flex"}
     var db=await claude.use("db");
-    if(db){dbRef=db.doc("site/market");var s=await dbRef.get();if(s.exists){cfg=Object.assign({},DEF,s.data());render()}}
+    if(db){
+      dbRef=db.doc("site/market");var s=await dbRef.get();if(s.exists){cfg=Object.assign({},DEF,s.data());render()}
+      if(u){myId=await u.id()}
+      revDb=db.collection("reviews");
+      revDb.orderBy("ts","desc").onSnapshot(function(snap){revs=snap.docs.map(function(d){return Object.assign({id:d.id},d.data())});renderRev()},function(){revDb=null});
+    }
   }catch(e){}
 })();
 </script>
